@@ -1,0 +1,6 @@
+{
+  "name": "TaskFlow — Web Application QA & Testing Lab",
+  "description": "Full-stack React, Express, and PostgreSQL task management application with an integrated QA testing workbench for test case tracking, defect reporting, and REST API validation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

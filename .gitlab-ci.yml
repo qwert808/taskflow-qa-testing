@@ -1,0 +1,174 @@
+stages:
+  - install
+  - lint
+  - unit_tests
+  - api_regression
+  - api_ddt
+  - e2e_playwright
+  - reports
+
+variables:
+  NODE_ENV: test
+  PORT: "3000"
+  TASKFLOW_BASE_URL: "http://127.0.0.1:3000"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+install_dependencies:
+  stage: install
+  image: node:22
+  script:
+    - npm ci
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1 hour
+
+lint_and_typecheck:
+  stage: lint
+  image: node:22
+  needs: ["install_dependencies"]
+  script:
+    - npm run lint
+    - npm run build
+
+unit_tests:
+  stage: unit_tests
+  image: node:22
+  needs: ["install_dependencies"]
+  script:
+    - npx tsx --test src/lib/validation.test.ts src/lib/analytics.test.ts
+
+api_regression_newman:
+  stage: api_regression
+  image: node:22
+  needs: ["install_dependencies"]
+  services:
+    - name: postgres:16-alpine
+      alias: postgres
+  variables:
+    SQL_HOST: postgres
+    SQL_DB_NAME: taskflow_ci
+    SQL_USER: taskflow_ci
+    SQL_PASSWORD: ${CI_DB_PASSWORD}
+    SQL_ADMIN_USER: taskflow_ci
+    SQL_ADMIN_PASSWORD: ${CI_DB_PASSWORD}
+    POSTGRES_DB: taskflow_ci
+    POSTGRES_USER: taskflow_ci
+    POSTGRES_PASSWORD: ${CI_DB_PASSWORD}
+    SESSION_SECRET: ${CI_SESSION_SECRET}
+  script:
+    - npx drizzle-kit push --config=src/db/drizzle.config.ts --force
+    - npx tsx server.ts &
+    - SERVER_PID=$!
+    - |
+      for i in $(seq 1 30); do
+        if curl -sf http://127.0.0.1:3000/api/auth/session > /dev/null; then break; fi
+        sleep 1
+      done
+    - node qa/postman/run-newman.mjs
+    - kill $SERVER_PID || true
+  artifacts:
+    when: always
+    paths:
+      - reports/newman/
+    reports:
+      junit: reports/newman/junit-report.xml
+    expire_in: 14 days
+
+api_negative_ddt:
+  stage: api_ddt
+  image: node:22
+  needs: ["install_dependencies"]
+  services:
+    - name: postgres:16-alpine
+      alias: postgres
+  variables:
+    SQL_HOST: postgres
+    SQL_DB_NAME: taskflow_ci
+    SQL_USER: taskflow_ci
+    SQL_PASSWORD: ${CI_DB_PASSWORD}
+    SQL_ADMIN_USER: taskflow_ci
+    SQL_ADMIN_PASSWORD: ${CI_DB_PASSWORD}
+    POSTGRES_DB: taskflow_ci
+    POSTGRES_USER: taskflow_ci
+    POSTGRES_PASSWORD: ${CI_DB_PASSWORD}
+    SESSION_SECRET: ${CI_SESSION_SECRET}
+  script:
+    - npx drizzle-kit push --config=src/db/drizzle.config.ts --force
+    - npx tsx server.ts &
+    - SERVER_PID=$!
+    - |
+      for i in $(seq 1 30); do
+        if curl -sf http://127.0.0.1:3000/api/auth/session > /dev/null; then break; fi
+        sleep 1
+      done
+    - node qa/postman/run-newman.mjs --ddt
+    - kill $SERVER_PID || true
+  artifacts:
+    when: always
+    paths:
+      - reports/newman/
+    reports:
+      junit: reports/newman/junit-ddt-report.xml
+    expire_in: 14 days
+
+playwright_e2e:
+  stage: e2e_playwright
+  image: mcr.microsoft.com/playwright:v1.50.0-noble
+  needs: ["install_dependencies"]
+  services:
+    - name: postgres:16-alpine
+      alias: postgres
+  variables:
+    SQL_HOST: postgres
+    SQL_DB_NAME: taskflow_ci
+    SQL_USER: taskflow_ci
+    SQL_PASSWORD: ${CI_DB_PASSWORD}
+    SQL_ADMIN_USER: taskflow_ci
+    SQL_ADMIN_PASSWORD: ${CI_DB_PASSWORD}
+    POSTGRES_DB: taskflow_ci
+    POSTGRES_USER: taskflow_ci
+    POSTGRES_PASSWORD: ${CI_DB_PASSWORD}
+    SESSION_SECRET: ${CI_SESSION_SECRET}
+  script:
+    - npx drizzle-kit push --config=src/db/drizzle.config.ts --force
+    - npx tsx server.ts &
+    - SERVER_PID=$!
+    - |
+      for i in $(seq 1 30); do
+        if curl -sf http://127.0.0.1:3000/api/auth/session > /dev/null; then break; fi
+        sleep 1
+      done
+    - npx playwright test
+    - kill $SERVER_PID || true
+  artifacts:
+    when: always
+    paths:
+      - reports/playwright/
+      - test-results/
+    reports:
+      junit: reports/playwright/junit.xml
+    expire_in: 14 days
+
+publish_qa_summary:
+  stage: reports
+  image: node:22
+  needs:
+    - job: api_regression_newman
+      artifacts: true
+    - job: api_negative_ddt
+      artifacts: true
+    - job: playwright_e2e
+      artifacts: true
+  when: always
+  script:
+    - ls -la reports/newman reports/playwright || true
+  artifacts:
+    when: always
+    paths:
+      - reports/
+    expire_in: 30 days

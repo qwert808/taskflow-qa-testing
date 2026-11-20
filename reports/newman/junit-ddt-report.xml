@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="TaskFlow API Guard — Data-Driven Negative Suite" tests="7" time="0.065">
+  <testsuite name="DDT Register Negative Case ({{caseName}})" id="ee7dd848-0188-4265-a8d9-a44ac89da1c9" timestamp="2026-11-20T09:12:05.206Z" tests="2" failures="0" errors="0" time="0.009">
+    <testcase name="Status matches expectedStatus" time="0.004" classname="DdtRegisterNegativeCaseCaseName"/>
+    <testcase name="Error message returned" time="0.004" classname="DdtRegisterNegativeCaseCaseName"/>
+  </testsuite>
+</testsuites>

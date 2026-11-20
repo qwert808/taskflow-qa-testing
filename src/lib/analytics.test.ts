@@ -1,12 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  buildTraceabilityMatrix,
   computeDashboardStats,
+  computeQaPortfolioReport,
   computeQaSummary,
   filterAndSortTasks,
   isTaskOverdue,
+  normalizeTestCaseStatus,
 } from './analytics';
-import type { Task } from './types';
+import type { BugReportRecord, RequirementRecord, Task, TestCaseRecord } from './types';
 
 const SAMPLE_TASKS: Task[] = [
   {
@@ -99,13 +102,205 @@ test('filterAndSortTasks filters by search, status, priority and sorts by deadli
 
 test('computeQaSummary computes pass rate and open defects accurately', () => {
   const summary = computeQaSummary(
-    [{ status: 'Pass' }, { status: 'Pass' }, { status: 'Fail' }, { status: 'Not Executed' }],
+    [{ status: 'Pass' }, { status: 'Pass' }, { status: 'Fail' }, { status: 'Not Run' }],
     [{ status: 'Open' }, { status: 'Closed' }, { status: 'Retesting' }]
   );
   assert.equal(summary.totalCases, 4);
   assert.equal(summary.executedCases, 3);
   assert.equal(summary.passedCases, 2);
   assert.equal(summary.failedCases, 1);
+  assert.equal(summary.notRunCases, 1);
   assert.equal(summary.passRate, 67);
   assert.equal(summary.openBugs, 2);
+  assert.equal(normalizeTestCaseStatus('Not Executed'), 'Not Run');
+});
+
+test('buildTraceabilityMatrix identifies uncovered requirements, unlinked cases, and failed requirements', () => {
+  const reqs: RequirementRecord[] = [
+    {
+      id: 1,
+      userId: 1,
+      reqCode: 'AUTH-01',
+      title: 'Registration',
+      category: 'Functional',
+      module: 'Authentication',
+      userStory: '',
+      acceptanceCriteria: 'Valid user saved',
+      priority: 'Critical',
+      createdAt: '2026-11-19T00:00:00.000Z',
+      updatedAt: '2026-11-19T00:00:00.000Z',
+    },
+    {
+      id: 2,
+      userId: 1,
+      reqCode: 'AUTH-02',
+      title: 'Email validation',
+      category: 'Functional',
+      module: 'Authentication',
+      userStory: '',
+      acceptanceCriteria: 'Invalid email rejected',
+      priority: 'High',
+      createdAt: '2026-11-19T00:00:00.000Z',
+      updatedAt: '2026-11-19T00:00:00.000Z',
+    },
+    {
+      id: 3,
+      userId: 1,
+      reqCode: 'AUTH-03',
+      title: 'Duplicate email',
+      category: 'Functional',
+      module: 'Authentication',
+      userStory: '',
+      acceptanceCriteria: '409 returned',
+      priority: 'Critical',
+      createdAt: '2026-11-19T00:00:00.000Z',
+      updatedAt: '2026-11-19T00:00:00.000Z',
+    },
+  ];
+
+  const cases: TestCaseRecord[] = [
+    {
+      id: 10,
+      userId: 1,
+      testId: 'TC-001',
+      requirementId: 'AUTH-01',
+      module: 'Authentication',
+      testType: 'Functional',
+      technique: 'Positive Testing',
+      scenario: 'Valid signup',
+      preconditions: '',
+      testData: '',
+      executionSteps: '',
+      expectedResult: '201',
+      actualResult: '201',
+      priority: 'High',
+      status: 'Pass',
+      tester: 'QA',
+      defectId: '',
+      executedAt: '2026-11-19T00:00:00.000Z',
+      createdAt: '2026-11-19T00:00:00.000Z',
+    },
+    {
+      id: 11,
+      userId: 1,
+      testId: 'TC-002',
+      requirementId: 'AUTH-02',
+      module: 'Authentication',
+      testType: 'Functional',
+      technique: 'Negative Testing',
+      scenario: 'Bad email',
+      preconditions: '',
+      testData: '',
+      executionSteps: '',
+      expectedResult: '400',
+      actualResult: '500',
+      priority: 'High',
+      status: 'Fail',
+      tester: 'QA',
+      defectId: 'BUG-001',
+      executedAt: '2026-11-19T00:00:00.000Z',
+      createdAt: '2026-11-19T00:00:00.000Z',
+    },
+    {
+      id: 12,
+      userId: 1,
+      testId: 'TC-099',
+      requirementId: 'ORPHAN-99',
+      module: 'Other',
+      testType: 'Manual',
+      technique: 'Error Guessing',
+      scenario: 'Unlinked scenario',
+      preconditions: '',
+      testData: '',
+      executionSteps: '',
+      expectedResult: 'OK',
+      actualResult: '',
+      priority: 'Low',
+      status: 'Not Run',
+      tester: '',
+      defectId: '',
+      executedAt: null,
+      createdAt: '2026-11-19T00:00:00.000Z',
+    },
+  ];
+
+  const rtm = buildTraceabilityMatrix(reqs, cases);
+  assert.equal(rtm.totalRequirements, 3);
+  assert.equal(rtm.coveredRequirements, 2);
+  assert.equal(rtm.coveragePercentage, 67);
+  assert.equal(rtm.uncoveredRequirements.length, 1);
+  assert.equal(rtm.uncoveredRequirements[0].reqCode, 'AUTH-03');
+  assert.equal(rtm.failedRequirements.length, 1);
+  assert.equal(rtm.failedRequirements[0].reqCode, 'AUTH-02');
+  assert.equal(rtm.unlinkedTestCases.length, 1);
+  assert.equal(rtm.unlinkedTestCases[0].testId, 'TC-099');
+});
+
+test('computeQaPortfolioReport returns null pass/closure rates when no data has been executed', () => {
+  const report = computeQaPortfolioReport([], [], [], [], []);
+  assert.equal(report.passRatePct, null);
+  assert.equal(report.defectClosureRatePct, null);
+  assert.equal(report.regressionStatus, 'Not Run');
+
+  const bugs: BugReportRecord[] = [
+    {
+      id: 1,
+      userId: 1,
+      bugCode: 'BUG-001',
+      title: 'Critical auth bug',
+      description: '',
+      module: 'Authentication',
+      environment: 'Local',
+      browserDevice: 'Chrome',
+      precondition: '',
+      stepsToReproduce: '1',
+      expectedResult: 'A',
+      actualResult: 'B',
+      severity: 'Critical',
+      priority: 'High',
+      status: 'Open',
+      assignedDeveloper: 'Dev A',
+      reporter: 'QA',
+      linkedRequirementId: 'AUTH-01',
+      linkedTestCaseId: 'TC-001',
+      gitlabIssueId: '',
+      gitlabIssueUrl: '',
+      evidence: '',
+      createdAt: '2026-11-19T00:00:00.000Z',
+      updatedAt: '2026-11-19T00:00:00.000Z',
+    },
+    {
+      id: 2,
+      userId: 1,
+      bugCode: 'BUG-002',
+      title: 'Fixed UI bug',
+      description: '',
+      module: 'Dashboard',
+      environment: 'Local',
+      browserDevice: 'Chrome',
+      precondition: '',
+      stepsToReproduce: '1',
+      expectedResult: 'A',
+      actualResult: 'B',
+      severity: 'Medium',
+      priority: 'Medium',
+      status: 'Closed',
+      assignedDeveloper: 'Dev B',
+      reporter: 'QA',
+      linkedRequirementId: 'DASH-01',
+      linkedTestCaseId: 'TC-022',
+      gitlabIssueId: '',
+      gitlabIssueUrl: '',
+      evidence: '',
+      createdAt: '2026-11-19T00:00:00.000Z',
+      updatedAt: '2026-11-19T00:00:00.000Z',
+    },
+  ];
+  const withBugs = computeQaPortfolioReport([], [], [], bugs, []);
+  assert.equal(withBugs.openDefects, 1);
+  assert.equal(withBugs.closedDefects, 1);
+  assert.equal(withBugs.criticalHighDefects, 1);
+  assert.equal(withBugs.defectClosureRatePct, 50);
+  assert.equal(withBugs.defectsBySeverity.Critical, 1);
+  assert.equal(withBugs.defectsByStatus.Closed, 1);
 });

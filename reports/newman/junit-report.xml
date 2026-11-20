@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="TaskFlow API Guard — Regression Automation Suite" tests="34" time="3.522">
+  <testsuite name="01. Authentication &amp; Session Guards / 01. Unauthenticated GET /api/tasks blocked (401)" id="caa83022-24e3-4ad0-b488-f201e4bd9d72" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.032">
+    <testcase name="HTTP status is 401" time="0.032" classname="01AuthenticationAmpSessionGuards01UnauthenticatedGetApiTasksBlocked401"/>
+    <testcase name="Response Content-Type is JSON" time="0.032" classname="01AuthenticationAmpSessionGuards01UnauthenticatedGetApiTasksBlocked401"/>
+    <testcase name="Response time is under 5000ms" time="0.032" classname="01AuthenticationAmpSessionGuards01UnauthenticatedGetApiTasksBlocked401"/>
+    <testcase name="Error message explains auth required" time="0.032" classname="01AuthenticationAmpSessionGuards01UnauthenticatedGetApiTasksBlocked401"/>
+    <testcase name="No tasks leaked in body" time="0.032" classname="01AuthenticationAmpSessionGuards01UnauthenticatedGetApiTasksBlocked401"/>
+  </testsuite>
+  <testsuite name="01. Authentication &amp; Session Guards / 02. Unauthenticated GET /api/dashboard/stats blocked (401)" id="e111f1bb-a6c7-4799-9f15-6bacaa266875" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.005">
+    <testcase name="HTTP status is 401" time="0.005" classname="01AuthenticationAmpSessionGuards02UnauthenticatedGetApiDashboardStatsBlocked401"/>
+    <testcase name="Response Content-Type is JSON" time="0.005" classname="01AuthenticationAmpSessionGuards02UnauthenticatedGetApiDashboardStatsBlocked401"/>
+    <testcase name="Response time is under 5000ms" time="0.005" classname="01AuthenticationAmpSessionGuards02UnauthenticatedGetApiDashboardStatsBlocked401"/>
+    <testcase name="Error string returned" time="0.005" classname="01AuthenticationAmpSessionGuards02UnauthenticatedGetApiDashboardStatsBlocked401"/>
+    <testcase name="Stats object omitted" time="0.005" classname="01AuthenticationAmpSessionGuards02UnauthenticatedGetApiDashboardStatsBlocked401"/>
+  </testsuite>
+  <testsuite name="01. Authentication &amp; Session Guards / 03. Silent session check returns unauthenticated (200)" id="1e79f155-0a06-4074-821e-768b54763402" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP status is 200" time="0.004" classname="01AuthenticationAmpSessionGuards03SilentSessionCheckReturnsUnauthenticated200"/>
+    <testcase name="Response Content-Type is JSON" time="0.004" classname="01AuthenticationAmpSessionGuards03SilentSessionCheckReturnsUnauthenticated200"/>
+    <testcase name="Response time is under 5000ms" time="0.004" classname="01AuthenticationAmpSessionGuards03SilentSessionCheckReturnsUnauthenticated200"/>
+    <testcase name="authenticated is false" time="0.004" classname="01AuthenticationAmpSessionGuards03SilentSessionCheckReturnsUnauthenticated200"/>
+    <testcase name="user is null" time="0.004" classname="01AuthenticationAmpSessionGuards03SilentSessionCheckReturnsUnauthenticated200"/>
+  </testsuite>
+  <testsuite name="01. Authentication &amp; Session Guards / 04. Register rejects invalid email &amp; weak password (400)" id="fe22a81f-bcc7-4a7c-92a3-1c4166d9e93f" timestamp="2026-11-20T09:11:59.346Z" tests="6" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP status is 400" time="0.004" classname="01AuthenticationAmpSessionGuards04RegisterRejectsInvalidEmailAmpWeakPassword400"/>
+    <testcase name="Response Content-Type is JSON" time="0.004" classname="01AuthenticationAmpSessionGuards04RegisterRejectsInvalidEmailAmpWeakPassword400"/>
+    <testcase name="Response time is under 5000ms" time="0.004" classname="01AuthenticationAmpSessionGuards04RegisterRejectsInvalidEmailAmpWeakPassword400"/>
+    <testcase name="Validation details include name" time="0.004" classname="01AuthenticationAmpSessionGuards04RegisterRejectsInvalidEmailAmpWeakPassword400"/>
+    <testcase name="Validation details include email" time="0.004" classname="01AuthenticationAmpSessionGuards04RegisterRejectsInvalidEmailAmpWeakPassword400"/>
+    <testcase name="Validation details include password" time="0.004" classname="01AuthenticationAmpSessionGuards04RegisterRejectsInvalidEmailAmpWeakPassword400"/>
+  </testsuite>
+  <testsuite name="01. Authentication &amp; Session Guards / 05. Register User A succeeds (201)" id="4390b913-052a-4237-993e-c20326c0745d" timestamp="2026-11-20T09:11:59.346Z" tests="6" failures="0" errors="0" time="0.350">
+    <testcase name="HTTP status is 201" time="0.350" classname="01AuthenticationAmpSessionGuards05RegisterUserASucceeds201"/>
+    <testcase name="Response Content-Type is JSON" time="0.350" classname="01AuthenticationAmpSessionGuards05RegisterUserASucceeds201"/>
+    <testcase name="Response time is under 5000ms" time="0.350" classname="01AuthenticationAmpSessionGuards05RegisterUserASucceeds201"/>
+    <testcase name="Token returned with tf_ prefix" time="0.350" classname="01AuthenticationAmpSessionGuards05RegisterUserASucceeds201"/>
+    <testcase name="User schema matches contract" time="0.350" classname="01AuthenticationAmpSessionGuards05RegisterUserASucceeds201"/>
+    <testcase name="Password hash never exposed" time="0.350" classname="01AuthenticationAmpSessionGuards05RegisterUserASucceeds201"/>
+  </testsuite>
+  <testsuite name="01. Authentication &amp; Session Guards / 06. Duplicate email registration rejected (409)" id="dc930fd7-c4d5-4b10-900b-e68cbe00e142" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.053">
+    <testcase name="HTTP status is 409" time="0.053" classname="01AuthenticationAmpSessionGuards06DuplicateEmailRegistrationRejected409"/>
+    <testcase name="Response Content-Type is JSON" time="0.053" classname="01AuthenticationAmpSessionGuards06DuplicateEmailRegistrationRejected409"/>
+    <testcase name="Response time is under 5000ms" time="0.053" classname="01AuthenticationAmpSessionGuards06DuplicateEmailRegistrationRejected409"/>
+    <testcase name="Conflict error returned" time="0.053" classname="01AuthenticationAmpSessionGuards06DuplicateEmailRegistrationRejected409"/>
+    <testcase name="Email detail present" time="0.053" classname="01AuthenticationAmpSessionGuards06DuplicateEmailRegistrationRejected409"/>
+  </testsuite>
+  <testsuite name="01. Authentication &amp; Session Guards / 07. Login rejects wrong password (401)" id="2af064d0-0e6e-407f-b455-72c7e66af432" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.115">
+    <testcase name="HTTP status is 401" time="0.115" classname="01AuthenticationAmpSessionGuards07LoginRejectsWrongPassword401"/>
+    <testcase name="Response Content-Type is JSON" time="0.115" classname="01AuthenticationAmpSessionGuards07LoginRejectsWrongPassword401"/>
+    <testcase name="Response time is under 5000ms" time="0.115" classname="01AuthenticationAmpSessionGuards07LoginRejectsWrongPassword401"/>
+    <testcase name="Generic invalid credentials error" time="0.115" classname="01AuthenticationAmpSessionGuards07LoginRejectsWrongPassword401"/>
+    <testcase name="No token issued on failed login" time="0.115" classname="01AuthenticationAmpSessionGuards07LoginRejectsWrongPassword401"/>
+  </testsuite>
+  <testsuite name="01. Authentication &amp; Session Guards / 08. Login succeeds with valid credentials (200)" id="3db6610b-0551-4c98-ac12-061c8cc6bd8d" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.128">
+    <testcase name="HTTP status is 200" time="0.128" classname="01AuthenticationAmpSessionGuards08LoginSucceedsWithValidCredentials200"/>
+    <testcase name="Response Content-Type is JSON" time="0.128" classname="01AuthenticationAmpSessionGuards08LoginSucceedsWithValidCredentials200"/>
+    <testcase name="Response time is under 5000ms" time="0.128" classname="01AuthenticationAmpSessionGuards08LoginSucceedsWithValidCredentials200"/>
+    <testcase name="Token is non-empty string" time="0.128" classname="01AuthenticationAmpSessionGuards08LoginSucceedsWithValidCredentials200"/>
+    <testcase name="Returned user email matches User A" time="0.128" classname="01AuthenticationAmpSessionGuards08LoginSucceedsWithValidCredentials200"/>
+  </testsuite>
+  <testsuite name="01. Authentication &amp; Session Guards / 09. Authenticated GET /api/auth/me returns profile (200)" id="c3f1d9af-b2c4-4997-82ca-97c15834171e" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.055">
+    <testcase name="HTTP status is 200" time="0.055" classname="01AuthenticationAmpSessionGuards09AuthenticatedGetApiAuthMeReturnsProfile200"/>
+    <testcase name="Response Content-Type is JSON" time="0.055" classname="01AuthenticationAmpSessionGuards09AuthenticatedGetApiAuthMeReturnsProfile200"/>
+    <testcase name="Response time is under 5000ms" time="0.055" classname="01AuthenticationAmpSessionGuards09AuthenticatedGetApiAuthMeReturnsProfile200"/>
+    <testcase name="Profile name matches" time="0.055" classname="01AuthenticationAmpSessionGuards09AuthenticatedGetApiAuthMeReturnsProfile200"/>
+    <testcase name="Numeric ID present" time="0.055" classname="01AuthenticationAmpSessionGuards09AuthenticatedGetApiAuthMeReturnsProfile200"/>
+  </testsuite>
+  <testsuite name="01. Authentication &amp; Session Guards / 10. Register User B for cross-user isolation tests (201)" id="a8ace50d-3ee6-486b-9f35-d76abdaf6c6e" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.172">
+    <testcase name="HTTP status is 201" time="0.172" classname="01AuthenticationAmpSessionGuards10RegisterUserBForCrossUserIsolationTests201"/>
+    <testcase name="Response Content-Type is JSON" time="0.172" classname="01AuthenticationAmpSessionGuards10RegisterUserBForCrossUserIsolationTests201"/>
+    <testcase name="Response time is under 5000ms" time="0.172" classname="01AuthenticationAmpSessionGuards10RegisterUserBForCrossUserIsolationTests201"/>
+    <testcase name="User B token issued" time="0.172" classname="01AuthenticationAmpSessionGuards10RegisterUserBForCrossUserIsolationTests201"/>
+    <testcase name="User B email matches" time="0.172" classname="01AuthenticationAmpSessionGuards10RegisterUserBForCrossUserIsolationTests201"/>
+  </testsuite>
+  <testsuite name="02. Task CRUD, Validation &amp; Boundary Testing / 11. Reject empty title and invalid enums (400)" id="bbbd79c1-f0f0-4247-bdb9-66b8cdb79a29" timestamp="2026-11-20T09:11:59.346Z" tests="7" failures="0" errors="0" time="0.052">
+    <testcase name="HTTP status is 400" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting11RejectEmptyTitleAndInvalidEnums400"/>
+    <testcase name="Response Content-Type is JSON" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting11RejectEmptyTitleAndInvalidEnums400"/>
+    <testcase name="Response time is under 5000ms" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting11RejectEmptyTitleAndInvalidEnums400"/>
+    <testcase name="Title error reported" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting11RejectEmptyTitleAndInvalidEnums400"/>
+    <testcase name="Priority error reported" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting11RejectEmptyTitleAndInvalidEnums400"/>
+    <testcase name="Status error reported" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting11RejectEmptyTitleAndInvalidEnums400"/>
+    <testcase name="Invalid date error reported" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting11RejectEmptyTitleAndInvalidEnums400"/>
+  </testsuite>
+  <testsuite name="02. Task CRUD, Validation &amp; Boundary Testing / 12. Enforce default past-deadline policy on creation (400)" id="dfe6b429-4bdb-4993-bb23-49aaef499cf9" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.055">
+    <testcase name="HTTP status is 400" time="0.055" classname="02TaskCrudValidationAmpBoundaryTesting12EnforceDefaultPastDeadlinePolicyOnCreation400"/>
+    <testcase name="Response Content-Type is JSON" time="0.055" classname="02TaskCrudValidationAmpBoundaryTesting12EnforceDefaultPastDeadlinePolicyOnCreation400"/>
+    <testcase name="Response time is under 5000ms" time="0.055" classname="02TaskCrudValidationAmpBoundaryTesting12EnforceDefaultPastDeadlinePolicyOnCreation400"/>
+    <testcase name="Date policy message returned" time="0.055" classname="02TaskCrudValidationAmpBoundaryTesting12EnforceDefaultPastDeadlinePolicyOnCreation400"/>
+    <testcase name="No task object created" time="0.055" classname="02TaskCrudValidationAmpBoundaryTesting12EnforceDefaultPastDeadlinePolicyOnCreation400"/>
+  </testsuite>
+  <testsuite name="02. Task CRUD, Validation &amp; Boundary Testing / 13. Reject boundary title exceeding 200 characters (400)" id="9d9850b5-fa2a-4f6f-9d3c-2af883cf4642" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.053">
+    <testcase name="HTTP status is 400" time="0.053" classname="02TaskCrudValidationAmpBoundaryTesting13RejectBoundaryTitleExceeding200Characters400"/>
+    <testcase name="Response Content-Type is JSON" time="0.053" classname="02TaskCrudValidationAmpBoundaryTesting13RejectBoundaryTitleExceeding200Characters400"/>
+    <testcase name="Response time is under 5000ms" time="0.053" classname="02TaskCrudValidationAmpBoundaryTesting13RejectBoundaryTitleExceeding200Characters400"/>
+    <testcase name="Max length error reported" time="0.053" classname="02TaskCrudValidationAmpBoundaryTesting13RejectBoundaryTitleExceeding200Characters400"/>
+    <testcase name="Validation failed message" time="0.053" classname="02TaskCrudValidationAmpBoundaryTesting13RejectBoundaryTitleExceeding200Characters400"/>
+  </testsuite>
+  <testsuite name="02. Task CRUD, Validation &amp; Boundary Testing / 14. Create High-priority task for User A (201)" id="51b18c85-5fdd-45ff-81fe-722e51d4c09c" timestamp="2026-11-20T09:11:59.346Z" tests="6" failures="0" errors="0" time="0.107">
+    <testcase name="HTTP status is 201" time="0.107" classname="02TaskCrudValidationAmpBoundaryTesting14CreateHighPriorityTaskForUserA201"/>
+    <testcase name="Response Content-Type is JSON" time="0.107" classname="02TaskCrudValidationAmpBoundaryTesting14CreateHighPriorityTaskForUserA201"/>
+    <testcase name="Response time is under 5000ms" time="0.107" classname="02TaskCrudValidationAmpBoundaryTesting14CreateHighPriorityTaskForUserA201"/>
+    <testcase name="Task schema has all required fields" time="0.107" classname="02TaskCrudValidationAmpBoundaryTesting14CreateHighPriorityTaskForUserA201"/>
+    <testcase name="Priority saved as high" time="0.107" classname="02TaskCrudValidationAmpBoundaryTesting14CreateHighPriorityTaskForUserA201"/>
+    <testcase name="Status saved as pending" time="0.107" classname="02TaskCrudValidationAmpBoundaryTesting14CreateHighPriorityTaskForUserA201"/>
+  </testsuite>
+  <testsuite name="02. Task CRUD, Validation &amp; Boundary Testing / 15. Create Low-priority task for User A (201)" id="45c7c772-3441-4ab1-854e-92d4a065e36f" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.109">
+    <testcase name="HTTP status is 201" time="0.109" classname="02TaskCrudValidationAmpBoundaryTesting15CreateLowPriorityTaskForUserA201"/>
+    <testcase name="Response Content-Type is JSON" time="0.109" classname="02TaskCrudValidationAmpBoundaryTesting15CreateLowPriorityTaskForUserA201"/>
+    <testcase name="Response time is under 5000ms" time="0.109" classname="02TaskCrudValidationAmpBoundaryTesting15CreateLowPriorityTaskForUserA201"/>
+    <testcase name="Priority saved as low" time="0.109" classname="02TaskCrudValidationAmpBoundaryTesting15CreateLowPriorityTaskForUserA201"/>
+    <testcase name="Due date matches" time="0.109" classname="02TaskCrudValidationAmpBoundaryTesting15CreateLowPriorityTaskForUserA201"/>
+  </testsuite>
+  <testsuite name="02. Task CRUD, Validation &amp; Boundary Testing / 16. Create backdated overdue task with explicit override (201)" id="a6d58691-aed4-42a2-90a0-47b52f707a4d" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.104">
+    <testcase name="HTTP status is 201" time="0.104" classname="02TaskCrudValidationAmpBoundaryTesting16CreateBackdatedOverdueTaskWithExplicitOverride201"/>
+    <testcase name="Response Content-Type is JSON" time="0.104" classname="02TaskCrudValidationAmpBoundaryTesting16CreateBackdatedOverdueTaskWithExplicitOverride201"/>
+    <testcase name="Response time is under 5000ms" time="0.104" classname="02TaskCrudValidationAmpBoundaryTesting16CreateBackdatedOverdueTaskWithExplicitOverride201"/>
+    <testcase name="Past dueDate persisted" time="0.104" classname="02TaskCrudValidationAmpBoundaryTesting16CreateBackdatedOverdueTaskWithExplicitOverride201"/>
+    <testcase name="Priority is medium" time="0.104" classname="02TaskCrudValidationAmpBoundaryTesting16CreateBackdatedOverdueTaskWithExplicitOverride201"/>
+  </testsuite>
+  <testsuite name="02. Task CRUD, Validation &amp; Boundary Testing / 17. GET single owned task by ID (200)" id="1226be78-0072-42b8-954f-3821f1679d28" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.101">
+    <testcase name="HTTP status is 200" time="0.101" classname="02TaskCrudValidationAmpBoundaryTesting17GetSingleOwnedTaskById200"/>
+    <testcase name="Response Content-Type is JSON" time="0.101" classname="02TaskCrudValidationAmpBoundaryTesting17GetSingleOwnedTaskById200"/>
+    <testcase name="Response time is under 5000ms" time="0.101" classname="02TaskCrudValidationAmpBoundaryTesting17GetSingleOwnedTaskById200"/>
+    <testcase name="Returned ID matches taskIdA1" time="0.101" classname="02TaskCrudValidationAmpBoundaryTesting17GetSingleOwnedTaskById200"/>
+    <testcase name="Title matches" time="0.101" classname="02TaskCrudValidationAmpBoundaryTesting17GetSingleOwnedTaskById200"/>
+  </testsuite>
+  <testsuite name="02. Task CRUD, Validation &amp; Boundary Testing / 18. GET malformed non-numeric task ID returns 400" id="22ac8bc4-dddd-498a-9315-9f0d98ac9ac8" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.052">
+    <testcase name="HTTP status is 400" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting18GetMalformedNonNumericTaskIdReturns400"/>
+    <testcase name="Response Content-Type is JSON" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting18GetMalformedNonNumericTaskIdReturns400"/>
+    <testcase name="Response time is under 5000ms" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting18GetMalformedNonNumericTaskIdReturns400"/>
+    <testcase name="Invalid ID error returned" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting18GetMalformedNonNumericTaskIdReturns400"/>
+    <testcase name="No stack trace exposed" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting18GetMalformedNonNumericTaskIdReturns400"/>
+  </testsuite>
+  <testsuite name="02. Task CRUD, Validation &amp; Boundary Testing / 19. GET non-existent task ID returns 404" id="b7cea0d0-6aaa-4a99-be87-78eead6b0de3" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.098">
+    <testcase name="HTTP status is 404" time="0.098" classname="02TaskCrudValidationAmpBoundaryTesting19GetNonExistentTaskIdReturns404"/>
+    <testcase name="Response Content-Type is JSON" time="0.098" classname="02TaskCrudValidationAmpBoundaryTesting19GetNonExistentTaskIdReturns404"/>
+    <testcase name="Response time is under 5000ms" time="0.098" classname="02TaskCrudValidationAmpBoundaryTesting19GetNonExistentTaskIdReturns404"/>
+    <testcase name="Not found error returned" time="0.098" classname="02TaskCrudValidationAmpBoundaryTesting19GetNonExistentTaskIdReturns404"/>
+    <testcase name="Task field absent" time="0.098" classname="02TaskCrudValidationAmpBoundaryTesting19GetNonExistentTaskIdReturns404"/>
+  </testsuite>
+  <testsuite name="02. Task CRUD, Validation &amp; Boundary Testing / 20. PUT update owned task details (200)" id="04aad0ee-d53e-4e3b-886b-2e072e6693ae" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.158">
+    <testcase name="HTTP status is 200" time="0.158" classname="02TaskCrudValidationAmpBoundaryTesting20PutUpdateOwnedTaskDetails200"/>
+    <testcase name="Response Content-Type is JSON" time="0.158" classname="02TaskCrudValidationAmpBoundaryTesting20PutUpdateOwnedTaskDetails200"/>
+    <testcase name="Response time is under 5000ms" time="0.158" classname="02TaskCrudValidationAmpBoundaryTesting20PutUpdateOwnedTaskDetails200"/>
+    <testcase name="Title updated" time="0.158" classname="02TaskCrudValidationAmpBoundaryTesting20PutUpdateOwnedTaskDetails200"/>
+    <testcase name="Deadline updated" time="0.158" classname="02TaskCrudValidationAmpBoundaryTesting20PutUpdateOwnedTaskDetails200"/>
+  </testsuite>
+  <testsuite name="02. Task CRUD, Validation &amp; Boundary Testing / 21. PATCH invalid task status rejected (400)" id="e280ad7d-2231-4af3-8b7d-cc5a931c2756" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.052">
+    <testcase name="HTTP status is 400" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting21PatchInvalidTaskStatusRejected400"/>
+    <testcase name="Response Content-Type is JSON" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting21PatchInvalidTaskStatusRejected400"/>
+    <testcase name="Response time is under 5000ms" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting21PatchInvalidTaskStatusRejected400"/>
+    <testcase name="Status error returned" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting21PatchInvalidTaskStatusRejected400"/>
+    <testcase name="Message mentions pending or completed" time="0.052" classname="02TaskCrudValidationAmpBoundaryTesting21PatchInvalidTaskStatusRejected400"/>
+  </testsuite>
+  <testsuite name="02. Task CRUD, Validation &amp; Boundary Testing / 22. PATCH mark task completed (200)" id="63e53db9-95ef-41d4-b79a-6fed99a36db5" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.162">
+    <testcase name="HTTP status is 200" time="0.162" classname="02TaskCrudValidationAmpBoundaryTesting22PatchMarkTaskCompleted200"/>
+    <testcase name="Response Content-Type is JSON" time="0.162" classname="02TaskCrudValidationAmpBoundaryTesting22PatchMarkTaskCompleted200"/>
+    <testcase name="Response time is under 5000ms" time="0.162" classname="02TaskCrudValidationAmpBoundaryTesting22PatchMarkTaskCompleted200"/>
+    <testcase name="Status transitioned to completed" time="0.162" classname="02TaskCrudValidationAmpBoundaryTesting22PatchMarkTaskCompleted200"/>
+    <testcase name="Task ID preserved" time="0.162" classname="02TaskCrudValidationAmpBoundaryTesting22PatchMarkTaskCompleted200"/>
+  </testsuite>
+  <testsuite name="03. Search, Filtering, Sorting &amp; Dashboard Analytics / 23. Filter tasks by status=completed (200)" id="f4d0758e-7f09-439a-b10d-cd49d404f628" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.106">
+    <testcase name="HTTP status is 200" time="0.106" classname="03SearchFilteringSortingAmpDashboardAnalytics23FilterTasksByStatusCompleted200"/>
+    <testcase name="Response Content-Type is JSON" time="0.106" classname="03SearchFilteringSortingAmpDashboardAnalytics23FilterTasksByStatusCompleted200"/>
+    <testcase name="Response time is under 5000ms" time="0.106" classname="03SearchFilteringSortingAmpDashboardAnalytics23FilterTasksByStatusCompleted200"/>
+    <testcase name="Returns exactly 1 completed task" time="0.106" classname="03SearchFilteringSortingAmpDashboardAnalytics23FilterTasksByStatusCompleted200"/>
+    <testcase name="All returned rows are completed" time="0.106" classname="03SearchFilteringSortingAmpDashboardAnalytics23FilterTasksByStatusCompleted200"/>
+  </testsuite>
+  <testsuite name="03. Search, Filtering, Sorting &amp; Dashboard Analytics / 24. Filter tasks by priority=high and search query (200)" id="a329ee1b-5921-4f82-ab45-c12e93bfc9e4" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.104">
+    <testcase name="HTTP status is 200" time="0.104" classname="03SearchFilteringSortingAmpDashboardAnalytics24FilterTasksByPriorityHighAndSearchQuery200"/>
+    <testcase name="Response Content-Type is JSON" time="0.104" classname="03SearchFilteringSortingAmpDashboardAnalytics24FilterTasksByPriorityHighAndSearchQuery200"/>
+    <testcase name="Response time is under 5000ms" time="0.104" classname="03SearchFilteringSortingAmpDashboardAnalytics24FilterTasksByPriorityHighAndSearchQuery200"/>
+    <testcase name="Returns matching high-priority task" time="0.104" classname="03SearchFilteringSortingAmpDashboardAnalytics24FilterTasksByPriorityHighAndSearchQuery200"/>
+    <testcase name="Priority is high" time="0.104" classname="03SearchFilteringSortingAmpDashboardAnalytics24FilterTasksByPriorityHighAndSearchQuery200"/>
+  </testsuite>
+  <testsuite name="03. Search, Filtering, Sorting &amp; Dashboard Analytics / 25. Sort tasks by dueDate ascending (200)" id="459bd1f6-b35d-4acc-8552-2aea70e22f5e" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.113">
+    <testcase name="HTTP status is 200" time="0.113" classname="03SearchFilteringSortingAmpDashboardAnalytics25SortTasksByDueDateAscending200"/>
+    <testcase name="Response Content-Type is JSON" time="0.113" classname="03SearchFilteringSortingAmpDashboardAnalytics25SortTasksByDueDateAscending200"/>
+    <testcase name="Response time is under 5000ms" time="0.113" classname="03SearchFilteringSortingAmpDashboardAnalytics25SortTasksByDueDateAscending200"/>
+    <testcase name="Returns 3 tasks for User A" time="0.113" classname="03SearchFilteringSortingAmpDashboardAnalytics25SortTasksByDueDateAscending200"/>
+    <testcase name="Oldest overdue date appears first" time="0.113" classname="03SearchFilteringSortingAmpDashboardAnalytics25SortTasksByDueDateAscending200"/>
+  </testsuite>
+  <testsuite name="03. Search, Filtering, Sorting &amp; Dashboard Analytics / 26. Verify GET /api/dashboard/stats totals, overdue &amp; rate (200)" id="c8d8597e-1d30-481c-9755-0eeee21df119" timestamp="2026-11-20T09:11:59.346Z" tests="8" failures="0" errors="0" time="0.307">
+    <testcase name="HTTP status is 200" time="0.307" classname="03SearchFilteringSortingAmpDashboardAnalytics26VerifyGetApiDashboardStatsTotalsOverdueAmpRate200"/>
+    <testcase name="Response Content-Type is JSON" time="0.307" classname="03SearchFilteringSortingAmpDashboardAnalytics26VerifyGetApiDashboardStatsTotalsOverdueAmpRate200"/>
+    <testcase name="Response time is under 5000ms" time="0.307" classname="03SearchFilteringSortingAmpDashboardAnalytics26VerifyGetApiDashboardStatsTotalsOverdueAmpRate200"/>
+    <testcase name="totalTasks is 3" time="0.307" classname="03SearchFilteringSortingAmpDashboardAnalytics26VerifyGetApiDashboardStatsTotalsOverdueAmpRate200"/>
+    <testcase name="completedTasks is 1" time="0.307" classname="03SearchFilteringSortingAmpDashboardAnalytics26VerifyGetApiDashboardStatsTotalsOverdueAmpRate200"/>
+    <testcase name="pendingTasks is 2" time="0.307" classname="03SearchFilteringSortingAmpDashboardAnalytics26VerifyGetApiDashboardStatsTotalsOverdueAmpRate200"/>
+    <testcase name="overdueTasks is 1" time="0.307" classname="03SearchFilteringSortingAmpDashboardAnalytics26VerifyGetApiDashboardStatsTotalsOverdueAmpRate200"/>
+    <testcase name="completionPercentage is 33" time="0.307" classname="03SearchFilteringSortingAmpDashboardAnalytics26VerifyGetApiDashboardStatsTotalsOverdueAmpRate200"/>
+  </testsuite>
+  <testsuite name="04. Cross-User Data Isolation (TASK-08) / 27. User B cannot GET User A task (403)" id="7dcb3f0f-099d-4b9b-ade7-3ee7795bd698" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.104">
+    <testcase name="HTTP status is 403" time="0.104" classname="04CrossUserDataIsolationTask0827UserBCannotGetUserATask403"/>
+    <testcase name="Response Content-Type is JSON" time="0.104" classname="04CrossUserDataIsolationTask0827UserBCannotGetUserATask403"/>
+    <testcase name="Response time is under 5000ms" time="0.104" classname="04CrossUserDataIsolationTask0827UserBCannotGetUserATask403"/>
+    <testcase name="Forbidden message returned" time="0.104" classname="04CrossUserDataIsolationTask0827UserBCannotGetUserATask403"/>
+    <testcase name="Foreign task body not leaked" time="0.104" classname="04CrossUserDataIsolationTask0827UserBCannotGetUserATask403"/>
+  </testsuite>
+  <testsuite name="04. Cross-User Data Isolation (TASK-08) / 28. User B cannot PUT User A task (403)" id="6d4605ee-145d-46de-a283-783dd79d6b75" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.105">
+    <testcase name="HTTP status is 403" time="0.105" classname="04CrossUserDataIsolationTask0828UserBCannotPutUserATask403"/>
+    <testcase name="Response Content-Type is JSON" time="0.105" classname="04CrossUserDataIsolationTask0828UserBCannotPutUserATask403"/>
+    <testcase name="Response time is under 5000ms" time="0.105" classname="04CrossUserDataIsolationTask0828UserBCannotPutUserATask403"/>
+    <testcase name="Forbidden modification blocked" time="0.105" classname="04CrossUserDataIsolationTask0828UserBCannotPutUserATask403"/>
+    <testcase name="No task returned" time="0.105" classname="04CrossUserDataIsolationTask0828UserBCannotPutUserATask403"/>
+  </testsuite>
+  <testsuite name="04. Cross-User Data Isolation (TASK-08) / 29. User B cannot PATCH User A task status (403)" id="89ff9cd0-260e-4aee-b6be-813e722fe654" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.104">
+    <testcase name="HTTP status is 403" time="0.104" classname="04CrossUserDataIsolationTask0829UserBCannotPatchUserATaskStatus403"/>
+    <testcase name="Response Content-Type is JSON" time="0.104" classname="04CrossUserDataIsolationTask0829UserBCannotPatchUserATaskStatus403"/>
+    <testcase name="Response time is under 5000ms" time="0.104" classname="04CrossUserDataIsolationTask0829UserBCannotPatchUserATaskStatus403"/>
+    <testcase name="Forbidden status change blocked" time="0.104" classname="04CrossUserDataIsolationTask0829UserBCannotPatchUserATaskStatus403"/>
+    <testcase name="No task returned" time="0.104" classname="04CrossUserDataIsolationTask0829UserBCannotPatchUserATaskStatus403"/>
+  </testsuite>
+  <testsuite name="04. Cross-User Data Isolation (TASK-08) / 30. User B cannot DELETE User A task (403)" id="5d99e451-9387-4f2e-92c4-6442228e9f4a" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.104">
+    <testcase name="HTTP status is 403" time="0.104" classname="04CrossUserDataIsolationTask0830UserBCannotDeleteUserATask403"/>
+    <testcase name="Response Content-Type is JSON" time="0.104" classname="04CrossUserDataIsolationTask0830UserBCannotDeleteUserATask403"/>
+    <testcase name="Response time is under 5000ms" time="0.104" classname="04CrossUserDataIsolationTask0830UserBCannotDeleteUserATask403"/>
+    <testcase name="Forbidden delete blocked" time="0.104" classname="04CrossUserDataIsolationTask0830UserBCannotDeleteUserATask403"/>
+    <testcase name="User B still sees 0 tasks" time="0.104" classname="04CrossUserDataIsolationTask0830UserBCannotDeleteUserATask403"/>
+  </testsuite>
+  <testsuite name="05. Profile, QA Persistence, Cleanup &amp; Token Revocation / 31. Update User A profile display name (200)" id="b93246ed-1156-49fc-bec0-788c1b9c09bc" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.112">
+    <testcase name="HTTP status is 200" time="0.112" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation31UpdateUserAProfileDisplayName200"/>
+    <testcase name="Response Content-Type is JSON" time="0.112" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation31UpdateUserAProfileDisplayName200"/>
+    <testcase name="Response time is under 5000ms" time="0.112" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation31UpdateUserAProfileDisplayName200"/>
+    <testcase name="Updated name persisted" time="0.112" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation31UpdateUserAProfileDisplayName200"/>
+    <testcase name="Success message present" time="0.112" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation31UpdateUserAProfileDisplayName200"/>
+  </testsuite>
+  <testsuite name="05. Profile, QA Persistence, Cleanup &amp; Token Revocation / 32. Change User A password rejects wrong current password (401)" id="c4726d62-0053-4076-982d-6bae00c8ad5e" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.182">
+    <testcase name="HTTP status is 401" time="0.182" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation32ChangeUserAPasswordRejectsWrongCurrentPassword401"/>
+    <testcase name="Response Content-Type is JSON" time="0.182" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation32ChangeUserAPasswordRejectsWrongCurrentPassword401"/>
+    <testcase name="Response time is under 5000ms" time="0.182" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation32ChangeUserAPasswordRejectsWrongCurrentPassword401"/>
+    <testcase name="Current password mismatch rejected" time="0.182" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation32ChangeUserAPasswordRejectsWrongCurrentPassword401"/>
+    <testcase name="Field error returned" time="0.182" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation32ChangeUserAPasswordRejectsWrongCurrentPassword401"/>
+  </testsuite>
+  <testsuite name="05. Profile, QA Persistence, Cleanup &amp; Token Revocation / 33. Delete owned task and verify DB removal (200)" id="d596142e-fcb3-4daa-8634-044234beaf40" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.156">
+    <testcase name="HTTP status is 200" time="0.156" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation33DeleteOwnedTaskAndVerifyDbRemoval200"/>
+    <testcase name="Response Content-Type is JSON" time="0.156" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation33DeleteOwnedTaskAndVerifyDbRemoval200"/>
+    <testcase name="Response time is under 5000ms" time="0.156" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation33DeleteOwnedTaskAndVerifyDbRemoval200"/>
+    <testcase name="Deleted task ID echoed" time="0.156" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation33DeleteOwnedTaskAndVerifyDbRemoval200"/>
+    <testcase name="Message confirms deletion" time="0.156" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation33DeleteOwnedTaskAndVerifyDbRemoval200"/>
+  </testsuite>
+  <testsuite name="05. Profile, QA Persistence, Cleanup &amp; Token Revocation / 34. Logout User A revokes session token (200 + verified)" id="ae044de3-0fd0-4e37-987c-3288c037f114" timestamp="2026-11-20T09:11:59.346Z" tests="5" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP status is 200" time="0.004" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation34LogoutUserARevokesSessionToken200Verified"/>
+    <testcase name="Response Content-Type is JSON" time="0.004" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation34LogoutUserARevokesSessionToken200Verified"/>
+    <testcase name="Response time is under 5000ms" time="0.004" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation34LogoutUserARevokesSessionToken200Verified"/>
+    <testcase name="Logout message confirmed" time="0.004" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation34LogoutUserARevokesSessionToken200Verified"/>
+    <testcase name="Unknown API route format check" time="0.004" classname="05ProfileQaPersistenceCleanupAmpTokenRevocation34LogoutUserARevokesSessionToken200Verified"/>
+  </testsuite>
+</testsuites>

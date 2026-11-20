@@ -1,0 +1,8 @@
+caseName,name,email,password,expectedStatus
+Empty all fields,,,,400
+Short name,A,valid.ddt@example.com,ValidPass1,400
+Missing domain TLD,QA User,user@localhost,ValidPass1,400
+Email with spaces,QA User,bad email@example.com,ValidPass1,400
+Password under 8 chars,QA User,ddt5@example.com,Pass12,400
+Password without digit,QA User,ddt6@example.com,OnlyLettersPass,400
+Password without letter,QA User,ddt7@example.com,1234567890,400

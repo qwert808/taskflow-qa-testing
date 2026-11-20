@@ -9,7 +9,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test:unit": "tsx --test src/lib/validation.test.ts src/lib/analytics.test.ts src/lib/qaIntegrity.test.ts",
+    "test:api": "node qa/postman/run-newman.mjs",
+    "test:api:ddt": "node qa/postman/run-newman.mjs --ddt"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
@@ -30,14 +33,15 @@
     "vite": "^8.3.0"
   },
   "devDependencies": {
+    "@types/express": "^4.17.21",
     "@types/node": "^22.14.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.25.0",
+    "newman": "^6.2.3",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.21.0",
-    "typescript": "^7.0.2",
-    "@types/express": "^4.17.21"
+    "typescript": "^7.0.2"
   }
 }

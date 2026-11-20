@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TaskFlow API Guard — Newman Execution Report</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; color: #0f172a; background: #f8fafc; margin: 0; padding: 32px; }
+    .container { max-width: 1080px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 28px; }
+    h1 { margin: 0 0 6px; font-size: 22px; }
+    .meta { color: #64748b; font-size: 13px; margin-bottom: 20px; }
+    .kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 24px; }
+    .kpi { border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; }
+    .kpi-label { font-size: 12px; color: #64748b; }
+    .kpi-val { font-size: 20px; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; }
+    th { background: #f8fafc; color: #475569; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>TaskFlow API Guard — Newman Execution Report</h1>
+    <p class="meta">Executed: 2026-11-20T07:54:38.199Z · Duration: 3685 ms · Avg Response: 88 ms</p>
+    <div class="kpis">
+      <div class="kpi"><div class="kpi-label">Requests</div><div class="kpi-val">34</div></div>
+      <div class="kpi"><div class="kpi-label">Assertions</div><div class="kpi-val">178</div></div>
+      <div class="kpi"><div class="kpi-label">Passed</div><div class="kpi-val" style="color:#15803d">178</div></div>
+      <div class="kpi"><div class="kpi-label">Failed</div><div class="kpi-val" style="color:#0f172a">0</div></div>
+      <div class="kpi"><div class="kpi-label">Pass Rate</div><div class="kpi-val">100%</div></div>
+    </div>
+    <table>
+      <thead><tr><th>Request</th><th>Method</th><th>HTTP Status</th><th>Response Time</th><th>Result</th></tr></thead>
+      <tbody><tr>
+          <td>01. Unauthenticated GET /api/tasks blocked (401)</td>
+          <td><code>GET</code></td>
+          <td><code>401</code></td>
+          <td>35 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>02. Unauthenticated GET /api/dashboard/stats blocked (401)</td>
+          <td><code>GET</code></td>
+          <td><code>401</code></td>
+          <td>4 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>03. Silent session check returns unauthenticated (200)</td>
+          <td><code>GET</code></td>
+          <td><code>200</code></td>
+          <td>3 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>04. Register rejects invalid email &amp; weak password (400)</td>
+          <td><code>POST</code></td>
+          <td><code>400</code></td>
+          <td>5 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>05. Register User A succeeds (201)</td>
+          <td><code>POST</code></td>
+          <td><code>201</code></td>
+          <td>175 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>06. Duplicate email registration rejected (409)</td>
+          <td><code>POST</code></td>
+          <td><code>409</code></td>
+          <td>52 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>07. Login rejects wrong password (401)</td>
+          <td><code>POST</code></td>
+          <td><code>401</code></td>
+          <td>116 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>08. Login succeeds with valid credentials (200)</td>
+          <td><code>POST</code></td>
+          <td><code>200</code></td>
+          <td>129 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>09. Authenticated GET /api/auth/me returns profile (200)</td>
+          <td><code>GET</code></td>
+          <td><code>200</code></td>
+          <td>53 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>10. Register User B for cross-user isolation tests (201)</td>
+          <td><code>POST</code></td>
+          <td><code>201</code></td>
+          <td>162 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>11. Reject empty title and invalid enums (400)</td>
+          <td><code>POST</code></td>
+          <td><code>400</code></td>
+          <td>51 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>12. Enforce default past-deadline policy on creation (400)</td>
+          <td><code>POST</code></td>
+          <td><code>400</code></td>
+          <td>52 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>13. Reject boundary title exceeding 200 characters (400)</td>
+          <td><code>POST</code></td>
+          <td><code>400</code></td>
+          <td>51 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>14. Create High-priority task for User A (201)</td>
+          <td><code>POST</code></td>
+          <td><code>201</code></td>
+          <td>98 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>15. Create Low-priority task for User A (201)</td>
+          <td><code>POST</code></td>
+          <td><code>201</code></td>
+          <td>100 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>16. Create backdated overdue task with explicit override (201)</td>
+          <td><code>POST</code></td>
+          <td><code>201</code></td>
+          <td>99 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>17. GET single owned task by ID (200)</td>
+          <td><code>GET</code></td>
+          <td><code>200</code></td>
+          <td>97 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>18. GET malformed non-numeric task ID returns 400</td>
+          <td><code>GET</code></td>
+          <td><code>400</code></td>
+          <td>51 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>19. GET non-existent task ID returns 404</td>
+          <td><code>GET</code></td>
+          <td><code>404</code></td>
+          <td>96 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>20. PUT update owned task details (200)</td>
+          <td><code>PUT</code></td>
+          <td><code>200</code></td>
+          <td>146 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>21. PATCH invalid task status rejected (400)</td>
+          <td><code>PATCH</code></td>
+          <td><code>400</code></td>
+          <td>51 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>22. PATCH mark task completed (200)</td>
+          <td><code>PATCH</code></td>
+          <td><code>200</code></td>
+          <td>148 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>23. Filter tasks by status=completed (200)</td>
+          <td><code>GET</code></td>
+          <td><code>200</code></td>
+          <td>98 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>24. Filter tasks by priority=high and search query (200)</td>
+          <td><code>GET</code></td>
+          <td><code>200</code></td>
+          <td>104 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>25. Sort tasks by dueDate ascending (200)</td>
+          <td><code>GET</code></td>
+          <td><code>200</code></td>
+          <td>98 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>26. Verify GET /api/dashboard/stats totals, overdue &amp; rate (200)</td>
+          <td><code>GET</code></td>
+          <td><code>200</code></td>
+          <td>104 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>27. User B cannot GET User A task (403)</td>
+          <td><code>GET</code></td>
+          <td><code>403</code></td>
+          <td>99 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>28. User B cannot PUT User A task (403)</td>
+          <td><code>PUT</code></td>
+          <td><code>403</code></td>
+          <td>110 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>29. User B cannot PATCH User A task status (403)</td>
+          <td><code>PATCH</code></td>
+          <td><code>403</code></td>
+          <td>99 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>30. User B cannot DELETE User A task (403)</td>
+          <td><code>DELETE</code></td>
+          <td><code>403</code></td>
+          <td>100 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>31. Update User A profile display name (200)</td>
+          <td><code>PUT</code></td>
+          <td><code>200</code></td>
+          <td>109 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>32. Change User A password rejects wrong current password (401)</td>
+          <td><code>PUT</code></td>
+          <td><code>401</code></td>
+          <td>161 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>33. Delete owned task and verify DB removal (200)</td>
+          <td><code>DELETE</code></td>
+          <td><code>200</code></td>
+          <td>147 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr>
+<tr>
+          <td>34. Logout User A revokes session token (200 + verified)</td>
+          <td><code>POST</code></td>
+          <td><code>200</code></td>
+          <td>3 ms</td>
+          <td style="color:#15803d;font-weight:600;">PASS</td>
+        </tr></tbody>
+    </table>
+  </div>
+</body>
+</html>

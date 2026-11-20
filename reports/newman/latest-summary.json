@@ -1,0 +1,13 @@
+{
+  "suite": "newman",
+  "runLabel": "TaskFlow API Guard (34 Requests)",
+  "totalItems": 34,
+  "totalAssertions": 178,
+  "passedAssertions": 178,
+  "failedAssertions": 0,
+  "durationMs": 3685,
+  "avgResponseMs": 88,
+  "failedEndpoints": [],
+  "reportPath": "/api/qa/automation/newman-report",
+  "executedAt": "2026-11-20T07:54:38.199Z"
+}

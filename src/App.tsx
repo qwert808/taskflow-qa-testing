@@ -7,16 +7,34 @@ import { DashboardView } from './components/DashboardView';
 import { TasksView } from './components/TasksView';
 import { ProfileView } from './components/ProfileView';
 import { QaLabView } from './components/QaLabView';
+import { RequirementsView } from './components/RequirementsView';
+import { DefectsView } from './components/DefectsView';
+import { QaAnalyticsView } from './components/QaAnalyticsView';
 import { TaskModal } from './components/TaskModal';
 import { tasksApi } from './lib/api';
 import { computeDashboardStats } from './lib/analytics';
 import type { DashboardStats, Task, TaskPriority, TaskStatus } from './lib/types';
 
 const PAGE_TITLES: Record<ActivePage, { breadcrumb: string; title: string }> = {
-  dashboard: { breadcrumb: 'Workspace / Dashboard', title: 'Dashboard' },
-  tasks: { breadcrumb: 'Workspace / Tasks', title: 'Tasks' },
-  'qa-lab': { breadcrumb: 'Workspace / QA Lab', title: 'QA & Testing Lab' },
-  profile: { breadcrumb: 'Workspace / Profile', title: 'User Profile' },
+  dashboard: { breadcrumb: 'Application / Dashboard', title: 'Dashboard' },
+  tasks: { breadcrumb: 'Application / Tasks', title: 'Tasks' },
+  requirements: {
+    breadcrumb: 'Quality Engineering / Requirements',
+    title: 'Requirements & Traceability Matrix',
+  },
+  'qa-lab': {
+    breadcrumb: 'Quality Engineering / Testing Lab',
+    title: 'QA Lab & Automation',
+  },
+  defects: {
+    breadcrumb: 'Quality Engineering / Defects',
+    title: 'Defect Management & GitLab',
+  },
+  'qa-reports': {
+    breadcrumb: 'Quality Engineering / Reports',
+    title: 'QA Analytics & Reports',
+  },
+  profile: { breadcrumb: 'Application / Profile', title: 'User Profile' },
 };
 
 function TaskFlowWorkspace() {
@@ -38,10 +56,7 @@ function TaskFlowWorkspace() {
     setLoadingTasks(true);
     setBannerError('');
     try {
-      const [tasksRes, statsRes] = await Promise.all([
-        tasksApi.list(),
-        tasksApi.stats(),
-      ]);
+      const [tasksRes, statsRes] = await Promise.all([tasksApi.list(), tasksApi.stats()]);
       setTasks(tasksRes.tasks);
       setStats(statsRes.stats);
     } catch (err) {
@@ -156,14 +171,13 @@ function TaskFlowWorkspace() {
       />
 
       <div className="flex-1 min-w-0 flex flex-col">
-        {/* Contextual Workspace Header */}
-        <header className="h-16 bg-white border-b border-slate-200 px-4 sm:px-8 flex items-center justify-between gap-4 shrink-0">
+        <header className="h-16 bg-white border-b border-slate-200 px-4 sm:px-8 flex items-center justify-between gap-4 shrink-0 print:border-b">
           <div className="flex items-center gap-3 min-w-0">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open navigation menu"
-              className="lg:hidden p-2 -ml-2 text-slate-600 hover:text-slate-900 rounded-md"
+              className="lg:hidden p-2 -ml-2 text-slate-600 hover:text-slate-900 rounded-md print:hidden"
             >
               <Menu className="w-5 h-5" />
             </button>
@@ -175,7 +189,7 @@ function TaskFlowWorkspace() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-3 shrink-0 print:hidden">
             {(activePage === 'dashboard' || activePage === 'tasks') && (
               <button
                 type="button"
@@ -189,7 +203,6 @@ function TaskFlowWorkspace() {
           </div>
         </header>
 
-        {/* Main Viewport */}
         <main className="flex-1 p-4 sm:p-8 max-w-7xl w-full mx-auto">
           {bannerError && (
             <div
@@ -233,11 +246,15 @@ function TaskFlowWorkspace() {
             />
           )}
 
-          {activePage === 'qa-lab' && <QaLabView onTasksChanged={loadTasksAndStats} />}
+          {activePage === 'requirements' && <RequirementsView />}
 
-          {activePage === 'profile' && (
-            <ProfileView user={user} onUserUpdated={refreshUser} />
-          )}
+          {activePage === 'qa-lab' && <QaLabView user={user} onTasksChanged={loadTasksAndStats} />}
+
+          {activePage === 'defects' && <DefectsView user={user} />}
+
+          {activePage === 'qa-reports' && <QaAnalyticsView />}
+
+          {activePage === 'profile' && <ProfileView user={user} onUserUpdated={refreshUser} />}
         </main>
       </div>
 

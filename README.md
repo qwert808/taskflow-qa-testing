@@ -387,7 +387,6 @@ These are potential extensions, not claims of currently completed functionality.
 
 B.Tech (Honours with Research) in Computer Science & Engineering
 
-Interested in Software Quality Engineering, Test Automation, Artificial Intelligence and Backend Development.
 
 ## Disclaimer
 
